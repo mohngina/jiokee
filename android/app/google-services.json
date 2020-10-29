@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "914760882114",
+    "firebase_url": "https://jiokee.firebaseio.com",
+    "project_id": "jiokee",
+    "storage_bucket": "jiokee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914760882114:android:0f13a9e5f6f970ec09285b",
+        "android_client_info": {
+          "package_name": "com.morrismuriithi.jiokee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "914760882114-7cpco3hjn81rcvafdiv827b4894knsdj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE0fCcjo_DhCifBbM_ABc8c1QhQ-0iVd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "914760882114-7cpco3hjn81rcvafdiv827b4894knsdj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
