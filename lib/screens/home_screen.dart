@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:jiokee/screens/map_screen.dart';
+import 'package:jiokee/widgets/custom_button.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -29,12 +31,50 @@ class _HomeScreenState extends State<HomeScreen> {
       print(e);
     }
   }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Text('THIS IS THE HOME SCREEN', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 40, color: Colors.deepOrange),),),
+      appBar: AppBar(elevation: 5, title: Text('Home', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 4,
+                child: Container()),
+            Expanded(
+              flex: 4,
+              child: Column(
+                children: [
+                  CustomButton(
+                      onPress: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    MapView()));
+                      },
+                      label: 'Find Garage'),
+                  SizedBox(height: 10,),
+                  CustomButton(
+                      onPress: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    MapView()));
+                      },
+                      label: 'Find Petrol'),
+                ],
+              ),
+            ),
+            Expanded(
+                flex: 4,
+                child: Container()),
+          ],
+        ),
+      ),
     );
   }
 }
