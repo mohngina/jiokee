@@ -10,6 +10,10 @@ import 'package:jiokee/utilities/shared_preference.dart';
 import 'package:http/http.dart' as http;
 
 class SignUpScreen extends StatefulWidget {
+
+  SignUpScreen({@required this.editForm});
+  final bool editForm;
+
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -148,7 +152,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Center(
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(vertical: 10),
-                                      child: Text(
+                                      child: widget.editForm ? Text(
+                                        'Edit Profile',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            letterSpacing: 1,
+                                            fontWeight: FontWeight.bold),
+                                      ) : Text(
                                         'Registration',
                                         style: TextStyle(
                                             fontSize: 20,
@@ -252,6 +262,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   },
                                 ),
                                 SizedBox(height: 20),
+                                widget.editForm ? CustomButton(
+                                  label: 'SAVE CHANGES',
+                                  onPress: (){
+
+                                  },
+                                ) :
                                 CustomButton(
                                   label: 'CREATE ACCOUNT',
                                   onPress: () async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:jiokee/widgets/custom_app_bar.dart';
 
 class MapView extends StatefulWidget {
 
@@ -25,7 +26,15 @@ class _MapViewState extends State<MapView> {
       height: height,
       width: width,
       child: Scaffold(
-        appBar: AppBar(elevation: 5, title: Text('Jiokee Map', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),),
+        appBar: CustomAppBar(
+        title: 'Maps',
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
+      ),
         body: Stack(
           children: <Widget>[
               GoogleMap(
