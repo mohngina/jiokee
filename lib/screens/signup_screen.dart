@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jiokee/utilities/shared_preference.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
 class SignUpScreen extends StatefulWidget {
@@ -20,12 +21,33 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _auth = FirebaseAuth.instance;
-  String email, password, password2, firstName, lastName, phoneNumber, userEmail;
+  final _firstore = FirebaseFirestore.instance;
+  String email, password, password2, firstName, lastName, phoneNUmber, userEmail;
   var data;
   bool isLoading = false;
-  //var url = 'http://zuruweb-new.herokuapp.com/api/v1/accounts/users/';
 
   final _formKey = GlobalKey<FormState>();
+
+  User loggedInUser;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+
+  void getCurrentUser() async {
+    try{
+      final user = await _auth.getRedirectResult();
+      if (user != null){
+        loggedInUser = _auth.currentUser;
+        print(loggedInUser.email);
+      }}
+    catch(e){
+      print(e);
+    }
+  }
 
   void showToast() {
     Fluttertoast.showToast(
@@ -47,52 +69,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
-
-  // void networkOps() async {
-  //   try {
-  //     Map<String, String> headers = {"Content-type": "application/json"};
-  //     var response = await http.post(url,
-  //         headers: headers,
-  //         body: jsonEncode({
-  //           'email': email,
-  //           'password': password,
-  //           'username': userName,
-  //           'profile': {"contact_number": phoneNumber},
-  //         }));
-  //
-  //     print(response);
-  //     if (response.statusCode == 200) {
-  //       data = jsonDecode(response.body);
-  //       Navigator.popAndPushNamed(context, '/');
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //     } else {
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //       data = jsonDecode(response.body);
-  //       try {
-  //         String numberError = data['profile']['contact_number'][0].toString();
-  //         numberError != null ? showToast(numberError) : print("notnull");
-  //       } catch (e) {}
-  //       try {
-  //         String usernameError = data['username'][0].toString();
-  //         usernameError != null ? showToast(usernameError) : print("notnull");
-  //       } catch (e) {}
-  //       try {
-  //         String emailError = data['email'][0].toString();
-  //         emailError != null ? showToast(emailError) : print("notnull");
-  //       } catch (e) {}
-  //     }
-  //   } catch (e) {
-  //     setState(() {
-  //       isLoading = false;
-  //       showToast('Check your internet connection');
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +198,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   hint: 'Phone Number',
                                   keyboardType: TextInputType.number,
                                   onChange: (typedNumber) {
-                                    phoneNumber = typedNumber;
+                                    phoneNUmber = typedNumber;
                                   },
                                   validate: (typedNumber) {
                                     if (typedNumber.isEmpty) {
@@ -232,7 +208,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   },
                                 ),
                                 SizedBox(height: 15),
-                                TextInput(
+                                widget.editForm ? Container() : TextInput(
                                   obscureText: true,
                                   hint: 'Password',
                                   onChange: (typedPassword) {
@@ -246,7 +222,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   },
                                 ),
                                 SizedBox(height: 15),
-                                TextInput(
+                                widget.editForm ? Container() : TextInput(
                                   obscureText: true,
                                   hint: 'Confirm Password',
                                   onChange: (typedPassword) {
@@ -265,7 +241,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 widget.editForm ? CustomButton(
                                   label: 'SAVE CHANGES',
                                   onPress: (){
-
+                                    _firstore.collection('profile').add({
+                                      'fname': firstName,
+                                      'lname': lastName,
+                                      'email': email,
+                                      'phone': phoneNUmber,
+                                    });
+                                    print('awesome');
                                   },
                                 ) :
                                 CustomButton(
@@ -291,6 +273,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                            // signUpToast();
                                          }
                                         }
+                                       await _firstore.collection('profile').add({
+                                          'fname': firstName,
+                                          'lname': lastName,
+                                          'phone': phoneNUmber,
+                                        });
                                       }catch(e){
                                         showToast();
                                       }

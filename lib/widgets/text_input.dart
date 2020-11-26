@@ -7,17 +7,23 @@ class TextInput extends StatelessWidget {
         @required this.validate,
         this.keyboardType,
         this.iconSuffix,
-        this.obscureText});
+        this.obscureText,
+        this.controller,
+      this.valueX});
+  final TextEditingController controller;
   final Function onChange;
   final Function validate;
   final String hint;
   final IconData iconSuffix;
   final TextInputType keyboardType;
   final bool obscureText;
+  final String valueX;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      //controller: controller,
+      initialValue: valueX,
       style: TextStyle(color: Colors.black),
       cursorColor: Colors.amber,
       obscureText: obscureText,

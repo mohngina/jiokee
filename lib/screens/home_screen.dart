@@ -40,31 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // void networkOps() async {
-  //   var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
-  //   "location="
-  //   "$latitude,"
-  //   "$longitude"
-  //   "&radius=1000&"
-  //   "types=gas_station&"
-  //   //"fields=name,geometry&"
-  //   "fields=address_component,name,geometry&"
-  //   "key=AIzaSyCmTQWvtmgxcppmShtOwveuFvVvt0JilIo";
-  //   var response = await http.get(url);
-  //
-  //   if (response.statusCode == 200) {
-  //     data = jsonDecode(response.body);
-  //     //Navigator.popAndPushNamed(context, 'home');
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //     showToast();
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
